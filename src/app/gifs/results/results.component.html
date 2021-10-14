@@ -1,0 +1,17 @@
+<section class="row">
+  <section
+    *ngFor="let item of results"
+    class="col-md-4 col-sm-6 animate__animated animate__fadeIn"
+  >
+    <section class="card">
+      <img
+        [src]="item.images.downsized_medium.url"
+        [alt]="item.title"
+        class="card-img-top"
+      />
+      <section class="card-body">
+        <p class="card-text">{{ item.title }}</p>
+      </section>
+    </section>
+  </section>
+</section>
