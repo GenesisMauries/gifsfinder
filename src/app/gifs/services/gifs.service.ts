@@ -17,6 +17,7 @@ export class GifsService {
   constructor(private http: HttpClient) { // inyectamos http para la peticion
     // Traemos del localStorage el historial
     this._historial = JSON.parse(localStorage.getItem("historial")!) || []
+    this.resultados = JSON.parse(localStorage.getItem("resultados")!) || []
   }
 
   buscarGifs(query: string) {
@@ -27,8 +28,12 @@ export class GifsService {
       localStorage.setItem('historial', JSON.stringify(this._historial))
     }
     // <SearchGifsResponse> indica el tipo de la respuesta
-    this.http.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=CnKxqUhyqoujucouCBApeqhMCAmaSv8I&q=${query}&limit=10`)
-      .subscribe((resp) => this.resultados = resp.data)
+    this.http.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=${this._apiKey}&q=${query}&limit=10`)
+      .subscribe((resp) => {
+        this.resultados = resp.data
+        // Guardamos resultados en localStorage
+        localStorage.setItem('resultados', JSON.stringify(this.resultados))
+      })
   }
 
 }
