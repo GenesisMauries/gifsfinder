@@ -11,6 +11,7 @@ export class SidebardComponent{
   
   // Traemos el arreglo con los items de busqueda
   get historial() {
+    
     return this.gifsService.historial
   }
   
